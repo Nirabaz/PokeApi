@@ -1,21 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--StartVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="StartVC" customModule="PokeApi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find pokemon by id" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ges-D4-QvL">
+                                <rect key="frame" x="16" y="44" width="149.5" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jdj-eP-uHw">
+                                <rect key="frame" x="181.5" y="44" width="131.5" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vH-Xn-eV3">
+                                <rect key="frame" x="329" y="44" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5vH-Xn-eV3" secondAttribute="height" multiplier="1:1" id="7SL-TC-yxO"/>
+                                </constraints>
+                                <state key="normal" title="Find"/>
+                                <connections>
+                                    <action selector="onFindBtnPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P70-IQ-QPv"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4KS-gW-Boe">
+                                <rect key="frame" x="16" y="98" width="343" height="553"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4KS-gW-Boe" secondAttribute="bottom" constant="16" id="1MU-78-gF8"/>
+                            <constraint firstItem="4KS-gW-Boe" firstAttribute="top" secondItem="Ges-D4-QvL" secondAttribute="bottom" constant="24" id="4UI-Mz-oEm"/>
+                            <constraint firstItem="Ges-D4-QvL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="DkK-cN-2RH"/>
+                            <constraint firstItem="jdj-eP-uHw" firstAttribute="leading" secondItem="Ges-D4-QvL" secondAttribute="trailing" constant="16" id="Pze-5y-oXC"/>
+                            <constraint firstItem="jdj-eP-uHw" firstAttribute="centerY" secondItem="Ges-D4-QvL" secondAttribute="centerY" id="RFn-yQ-2Nh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5vH-Xn-eV3" secondAttribute="trailing" constant="16" id="RcC-A9-r9u"/>
+                            <constraint firstItem="4KS-gW-Boe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="YtZ-t1-oVa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4KS-gW-Boe" secondAttribute="trailing" constant="16" id="d8K-JU-9vv"/>
+                            <constraint firstItem="5vH-Xn-eV3" firstAttribute="leading" secondItem="jdj-eP-uHw" secondAttribute="trailing" constant="16" id="m6Q-HX-kSb"/>
+                            <constraint firstItem="Ges-D4-QvL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="mF3-x8-mqj"/>
+                            <constraint firstItem="jdj-eP-uHw" firstAttribute="centerY" secondItem="5vH-Xn-eV3" secondAttribute="centerY" id="vj1-8r-bqv"/>
+                            <constraint firstItem="jdj-eP-uHw" firstAttribute="height" secondItem="Ges-D4-QvL" secondAttribute="height" id="zFL-kU-tV8"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="idInputTF" destination="jdj-eP-uHw" id="JIF-VO-p0L"/>
+                        <outlet property="infoTF" destination="4KS-gW-Boe" id="cUt-YH-srq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

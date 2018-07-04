@@ -9,34 +9,36 @@
 import Foundation
 
 enum PokemonMLKeys: String, CodingKey {
-    case id = "id"
-    case name = "name"
+    case id
+    case name
     case baseExperience = "base_experience"
-    case height = "height"
+    case height
     case isDefault = "is_default"
+    case types
 }
 
-final class PokemonML: SELDecodableFromParams{
+final class PokemonML: DecodableFromParams {
     
     private var _id: Int!
     private var _name: String!
     private var _baseExperience: Int!
     private var _isDefault: Bool?
     private var _height: Int?
+    private let _types: [TypeML]?
     
-    var id: Int{
+    var id: Int {
         get {
             return _id
         }
     }
     
-    var name: String{
+    var name: String {
         get {
             return _name
         }
     }
     
-    var baseExperience: Int{
+    var baseExperience: Int {
         get {
             return _baseExperience
         }
@@ -45,7 +47,7 @@ final class PokemonML: SELDecodableFromParams{
         }
     }
     
-    var height: Int{
+    var height: Int {
         get {
             return _height!
         }
@@ -54,13 +56,22 @@ final class PokemonML: SELDecodableFromParams{
         }
     }
     
-    var isDefault: Bool{
+    var isDefault: Bool {
         get {
             return _isDefault!
         }
         set {
             _isDefault = newValue
         }
+    }
+    
+    var stringDescription: String {
+        var typesDescription = ""
+        for element in _types!{
+            typesDescription.append("\n         {\n          \(element.stringDescription)\n         }")
+        }
+        let description = "pokemon: { \n id: \(id),\n name: \(name),\n baseExperience: \(baseExperience),\n height: \(height),\n isDefault: \(isDefault)\n types: \(typesDescription)\n}"
+        return description
     }
     
     init(from decoder: Decoder) throws {
@@ -76,12 +87,16 @@ final class PokemonML: SELDecodableFromParams{
             _height = 0
         }
         
-        if  let isDef = try? container.decode(Bool.self, forKey: .isDefault) {
+        if let isDef = try? container.decode(Bool.self, forKey: .isDefault) {
             _isDefault = isDef
         } else {
             _isDefault = false
         }
-        
-        print("id: \(id), name:  \(name), baseExperience: \(baseExperience), height: \(height), isDefault:\(isDefault)")
+               
+        if let aTypes = try? container.decode([TypeML].self, forKey: .types) {
+            _types = aTypes
+        } else {
+            _types = [TypeML]()
+        }
     }
 }

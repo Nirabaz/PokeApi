@@ -19,7 +19,7 @@ enum SlotCharacteristicsMLKeys: String, CodingKey {
     case url
 }
 
-final class SlotCharacteristicsML: SELDecodableFromParams {
+final class SlotCharacteristicsML: DecodableFromParams {
     
     private var _url: String!
     private var _name: String!
@@ -35,13 +35,15 @@ final class SlotCharacteristicsML: SELDecodableFromParams {
             return _name
         }
     }
+
+    var stringDescription: String {
+        let description = "\n                  url: \(_url!),\n                  type: \(_name!)"
+        return description
+    }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: SlotCharacteristicsMLKeys.self)
-        
         _name = try container.decode(String.self, forKey: .name)
         _url = try container.decode(String.self, forKey: .url)
-        
-        print("type: { \n name: \(name), \n url: \(url) \n }")
     }
 }

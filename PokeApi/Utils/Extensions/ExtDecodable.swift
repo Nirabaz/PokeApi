@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+protocol DecodableFromParams: Decodable { }
+
+extension DecodableFromParams {
+    
+    init?(from json: APIParams) throws {
+        guard let aJson = json, let data = try? JSONSerialization.data(withJSONObject: aJson, options: .prettyPrinted) else { return nil }
+        guard let value = try? JSONDecoder().decode(Self.self, from: data) else { return nil }
+        self = value
+    }
+}

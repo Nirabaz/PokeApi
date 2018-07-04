@@ -6,5 +6,6 @@ target 'PokeApi' do
   use_frameworks!
 
   pod 'Alamofire', '~> 4.7'
-
+  pod 'ReachabilitySwift'
+  
 end

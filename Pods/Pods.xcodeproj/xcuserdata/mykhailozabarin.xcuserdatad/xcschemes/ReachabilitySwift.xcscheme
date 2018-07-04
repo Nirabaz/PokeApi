@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "86F6E402DAF74251175DE1F37BE267FC"
-               BuildableName = "Pods_PokeApi.framework"
-               BlueprintName = "Pods-PokeApi"
+               BlueprintIdentifier = "020C325668CFF798C51FB6F031B0DC64"
+               BuildableName = "Reachability.framework"
+               BlueprintName = "ReachabilitySwift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "86F6E402DAF74251175DE1F37BE267FC"
-            BuildableName = "Pods_PokeApi.framework"
-            BlueprintName = "Pods-PokeApi"
+            BlueprintIdentifier = "020C325668CFF798C51FB6F031B0DC64"
+            BuildableName = "Reachability.framework"
+            BlueprintName = "ReachabilitySwift"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

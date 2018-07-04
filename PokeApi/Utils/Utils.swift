@@ -13,91 +13,8 @@ import SafariServices
 
 class Utils {
     
-    // MARK: - String Functions
-    static func isValidEmail(testStr:String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: testStr)
-    }
+   
     
-    static func deleteFirstAndLastSpacesFromString (str: String) -> String?  {
-        var resultString = str
-        
-        while (resultString.first == " ") && (!resultString.isEmpty) {
-            resultString.remove(at: resultString.startIndex)
-        }
-        
-        while (resultString.last == " ") && (!resultString.isEmpty) {
-            resultString.remove(at: resultString.index(before: resultString.endIndex))
-        }
-        
-        return resultString
-    }
-    
-    static func matchingStrings(str: String, regex: String) -> String {
-        guard let regex = try? NSRegularExpression(pattern: regex, options: []) else { return "" }
-        let nsString = str as NSString
-        
-        let match = regex.firstMatch(in: str, options:.init(rawValue: 0), range: NSRange.init(location: 0, length: nsString.length))
-        if (match != nil) {
-            let matchRange = match?.range(at: 1)
-            let matchString = nsString.substring(with: matchRange!)
-            if (matchString.isNotEmpty) {
-                return matchString
-            }
-        }
-        return ""
-    }
-    
-    // MARK: -  Filemanager methods
-    
-    static func getFolderBy(name: String) -> URL? {
-        let fileManager = FileManager.default
-        if let tDocumentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let filePath = tDocumentDirectory.appendingPathComponent(name)
-            let myFilePath = filePath.path
-            let exist = Utils.directoryExistsAtPath(myFilePath)
-            if !exist{
-                do {
-                    try fileManager.createDirectory(atPath: filePath.path,
-                                                    withIntermediateDirectories: false,
-                                                    attributes: nil)
-                } catch {
-                    print("Error creating images folder in documents dir: \(error)")
-                }
-            }
-            return filePath
-        }
-        return nil
-    }
-    
-    static func removeFileAtPath(_ filePath: String) {
-        let fileManager = FileManager.default
-        
-        do {
-            try fileManager.removeItem(atPath: filePath)
-            print("file removed --->>> \(filePath)")
-        }
-        catch let error as NSError {
-            print("Ooops! Something went wrong: \(error)")
-        }
-    }
-    
-    static func directoryExistsAtPath(_ path: String) -> Bool {
-        var isDirectory = ObjCBool(true)
-        let exists = FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
-        return exists && isDirectory.boolValue
-    }
-    
-    static func getAllFilesInFolderWith(url: URL) -> [URL]? {
-        let fileManager = FileManager.default
-        do {
-            return try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
-        } catch {
-            print("Error while enumerating files \(url): \(error.localizedDescription)")
-            return nil
-        }
-    }
     
     //MARK: - TOP VIEWCONTROLLER
     
@@ -202,47 +119,5 @@ class Utils {
         
         topVC.present(alertVC, animated: true, completion: nil)
     }
-    
-    //MARK: - Clear image cache
-//    static func clearAllImageCache() {
-//        let cache = ImageCache.default
-//        // Clear memory cache right away.
-//        cache.clearMemoryCache()
-//
-//        // Clear disk cache. This is an async operation.
-//        cache.clearDiskCache()
-//
-//        // Clean expired or size exceeded disk cache. This is an async operation.
-//        cache.cleanExpiredDiskCache()
-//    }
-    
-    static func openWithSafariVC(url: String, parentVC: BaseVC){
-        let svc = SFSafariViewController(url: URL.init(string: url)!)
-        svc.delegate = parentVC
-        svc.preferredControlTintColor = UIColor.colorWithHexString(hex: "271C44")
-        //        svc.
-        parentVC.present(svc, animated: true, completion: nil)
-    }
-    
-    //MARK: - Other
-    static func getDeviceOrientation() -> UIImageOrientation {
-        var currentDevice: UIDevice
-        currentDevice = .current
-        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-        var deviceOrientation: UIDeviceOrientation
-        deviceOrientation = currentDevice.orientation
-        
-        var imageOrientation: UIImageOrientation!
-        
-        if deviceOrientation == .portrait {
-            imageOrientation = .right
-        }else if (deviceOrientation == .landscapeLeft){
-            imageOrientation = .up
-        }else if (deviceOrientation == .landscapeRight){
-            imageOrientation = .down
-        }else{
-            imageOrientation = .right
-        }
-        return imageOrientation
-    }
+  
 }

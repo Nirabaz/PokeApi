@@ -8,28 +8,49 @@
 
 import UIKit
 
-class StartVC: UIViewController {
-
+class StartVC: BaseVC {
+    
+    @IBOutlet weak var infoTF: UITextView!
+    @IBOutlet weak var idInputTF: UITextField!
+    
+    var myPokemon: PokemonML?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func onFindBtnPress(_ sender: Any) {
+        idInputTF.resignFirstResponder()
+        if let idString = idInputTF.text{
+            if let idForSearch = Int(idString){
+                getModel(id : idForSearch)
+            } else {
+                Utils.standartAlertMessage(message: idString == "" ? "You need to enter id for search" : "Id could be numeric type only", title: "Error!", completionBlock: {})
+            }
+        }
     }
-    */
-
+    
+    func getModel(id: Int) {
+        guard let idString = idInputTF.text, let id = Int(idString)  else {return}
+        let _ = APIManager.shared().getItemById(itemId: id) { [weak self](result, response, errMsg) in
+            guard let strongSelf = self else { return }
+            if result{
+                do{
+                    guard let responseDictionary = response else {return}
+                    strongSelf.myPokemon = try PokemonML.self(from: responseDictionary)
+                    print("success")
+                    strongSelf.infoTF.text = strongSelf.myPokemon?.stringDescription
+                } catch {
+                    Utils.standartAlertMessage(message: "Something went wrong", title: "Error!", completionBlock: {})
+                }
+            }else{
+                if errMsg != nil{
+                    Utils.standartAlertMessage(message: "There is no pokemon with this id", title: "Error!", completionBlock: {})
+                }
+            }
+        }
+    }
+    
 }
+
