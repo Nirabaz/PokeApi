@@ -7,5 +7,6 @@ target 'PokeApi' do
 
   pod 'Alamofire', '~> 4.7'
   pod 'ReachabilitySwift'
+  pod 'JGProgressHUD'
   
 end

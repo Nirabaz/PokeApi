@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class StartVC: BaseVC {
     
@@ -14,7 +15,8 @@ class StartVC: BaseVC {
     @IBOutlet weak var idInputTF: UITextField!
     
     var myPokemon: PokemonML?
-    
+    let hud = JGProgressHUD(style: .dark)
+        
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -33,8 +35,10 @@ class StartVC: BaseVC {
     
     func getModel(id: Int) {
         guard let idString = idInputTF.text, let id = Int(idString)  else {return}
+        hud.show(in: self.view)
         let _ = APIManager.shared().getItemById(itemId: id) { [weak self](result, response, errMsg) in
             guard let strongSelf = self else { return }
+            strongSelf.hud.dismiss()
             if result{
                 do{
                     guard let responseDictionary = response else {return}
